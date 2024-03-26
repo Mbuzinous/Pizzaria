@@ -8,6 +8,7 @@ namespace Pizzaria
 {
     public class Customer_Catalog
     {
+        //If time permits
         public Customer_Catalog() 
         {
         }

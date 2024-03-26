@@ -8,6 +8,7 @@ namespace Pizzaria
 {
     public abstract class Profile
     {
+        //If time permits
         private string _name;
         private int _id;
         public Profile (string name, int id) 

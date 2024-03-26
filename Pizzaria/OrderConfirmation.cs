@@ -8,6 +8,7 @@ namespace Pizzaria
 {
     public class OrderConfirmation
     {
+        //If time permits
         private int _id;
         private static int _idCounter = 5000;
         private DateTime _date;

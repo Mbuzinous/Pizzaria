@@ -8,6 +8,7 @@ namespace Pizzaria
 {
     public class Customer : Profile
     {
+        //If time permits
         public Customer(string name, int id) : base(name, id)
         {
         }
