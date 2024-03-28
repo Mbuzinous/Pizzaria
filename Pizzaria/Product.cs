@@ -10,7 +10,7 @@ namespace Pizzaria
     public abstract class Product
     {
         private int _menuId;
-        private static int _idCounter = 1;
+        private static int _idCounter = 0;
         private string _name;
         private int _price;
         public Product(string name, int price)
@@ -21,7 +21,7 @@ namespace Pizzaria
             _idCounter++;
         }
 
-        public int MenuId { get => _menuId; protected set => _menuId = value; }
+        public int MenuId { get => _menuId; set => _menuId = value; }
         public string Name { get => _name; protected set => _name = value; }
         public int Price { get => _price; protected set => _price = value; }
     }

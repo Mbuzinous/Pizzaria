@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            Store pizzaria = new Store();
 
         }
     }
