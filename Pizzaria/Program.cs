@@ -1,10 +1,15 @@
-﻿namespace Pizzaria
+﻿using System.Runtime.InteropServices;
+
+namespace Pizzaria
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Store pizzaria = new Store();
+            Store bigMama = new Store();
+            
+            //Create
+            
 
         }
     }

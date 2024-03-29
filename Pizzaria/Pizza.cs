@@ -18,7 +18,7 @@ namespace Pizzaria
 
         public override string ToString()
         {
-            return $"Nr: {MenuId} Name: {Name.PadRight(20)} Price: {Price}";
+            return $"Nr: {MenuId} Name: {Name.PadRight(20)} Topping: {Topping.PadRight(20)} Price: {Price}";
         }
     }
 }

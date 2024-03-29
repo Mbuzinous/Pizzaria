@@ -10,7 +10,7 @@ namespace Pizzaria
     public abstract class Product
     {
         private int _menuId;
-        private static int _idCounter = 0;
+        private static int _idCounter = 1;
         private string _name;
         private int _price;
         public Product(string name, int price)
