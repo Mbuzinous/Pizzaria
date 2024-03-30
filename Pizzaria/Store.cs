@@ -19,13 +19,14 @@ namespace Pizzaria
         int aChoices = 0;
 
         //Dialogs
-        string printAdminMove1 = "\n1. Add a new pizza";
-        string printAdminMove2 = "2. Delete a pizza";
-        string printAdminMove3 = "3. Update a pizza";
-        string printAdminMove4 = "4. Search a pizza";
-        string printEnterChoice = "\nEnter your choice";
         string printExitProgram = "9. Exit Program";
+        string printAdminMenuAddPizza = "\n1. Add a new pizza";
+        string printAdminMenuDeletePizza = "2. Delete a pizza";
+        string printAdminMenuUpdatePizza = "3. Update a pizza";
+        string printAdminMenuSearchPizza = "4. Search a pizza";
+        string printAdminMenuEnterChoice = "\nEnter your choice";
         string printAdminError = "Error - Write a valid number please";
+        string printNoPizzaCreatedError = "\nError - NO pizzas has been created. Please create one first. (press 1.)";
 
         string printName = "Enter the name of your pizza";
         string printTopping = "\nWhat are the toppings?";
@@ -36,7 +37,7 @@ namespace Pizzaria
         string printUpdateMenuNumber = "\nEnter the menu Nr. of the pizza you want to UPDATE";
         string printSearchPizza = "\nEnter the menu Nr. of the pizza you want to SEARCH for";
 
-        string printContinueOrBackToAdmin = "1. Try again\n2. Go back to Admin page";
+        string printTryAgainOrBackToAdmin = "1. Try again\n2. Go back to Admin page";
 
 
         public Store()
@@ -53,12 +54,12 @@ namespace Pizzaria
             Console.WriteLine(printExitProgram);
             menu.PrintMenu();
 
-            Console.WriteLine(printAdminMove1);
-            Console.WriteLine(printAdminMove2);
-            Console.WriteLine(printAdminMove3);
-            Console.WriteLine(printAdminMove4);
+            Console.WriteLine(printAdminMenuAddPizza);
+            Console.WriteLine(printAdminMenuDeletePizza);
+            Console.WriteLine(printAdminMenuUpdatePizza);
+            Console.WriteLine(printAdminMenuSearchPizza);
 
-            Console.WriteLine(printEnterChoice);
+            Console.WriteLine(printAdminMenuEnterChoice);
             while (aChoices != 9)
             {
                 aChoices = Convert.ToInt32(Console.ReadLine());
@@ -68,13 +69,34 @@ namespace Pizzaria
                         AdminCreatePizza();
                         break;
                     case 2:
-                        AdminDeletePizza();
+                        if (menu.pizzaList.Count >= 1)
+                        {
+                            AdminDeletePizza();
+                        }
+                        else
+                        {
+                            Console.WriteLine(printNoPizzaCreatedError);
+                        }
                         break;
                     case 3:
-                        AdminUpdatePizza();
+                        if (menu.pizzaList.Count >= 1)
+                        {
+                            AdminUpdatePizza();
+                        }
+                        else
+                        {
+                            Console.WriteLine(printNoPizzaCreatedError);
+                        }
                         break;
                     case 4:
-                        AdminSearchPizza();
+                        if (menu.pizzaList.Count >= 1)
+                        {
+                            AdminSearchPizza();
+                        }
+                        else
+                        {
+                            Console.WriteLine(printNoPizzaCreatedError);
+                        }
                         break;
                     case 9:
                         Environment.Exit(0);
@@ -106,8 +128,8 @@ namespace Pizzaria
             Console.WriteLine(printPizzaCreated);
             menu.PrintMenu();
 
-            Console.WriteLine(printEnterChoice);
-            Console.WriteLine(printContinueOrBackToAdmin);
+            Console.WriteLine(printAdminMenuEnterChoice);
+            Console.WriteLine(printTryAgainOrBackToAdmin);
             Console.WriteLine(printExitProgram);
             while ((aChoices != 9))
             {
@@ -149,8 +171,8 @@ namespace Pizzaria
                 userChoices.Clear();
             }
 
-            Console.WriteLine(printEnterChoice);
-            Console.WriteLine(printContinueOrBackToAdmin);
+            Console.WriteLine(printAdminMenuEnterChoice);
+            Console.WriteLine(printTryAgainOrBackToAdmin);
             Console.WriteLine(printExitProgram);
             while ((aChoices != 9))
             {
@@ -175,7 +197,7 @@ namespace Pizzaria
 
         public void AdminUpdatePizza()
         {
-            Console.Clear();
+                Console.Clear();
             menu.PrintMenu();
 
             Console.WriteLine(printUpdateMenuNumber);
@@ -201,8 +223,8 @@ namespace Pizzaria
                 userChoices.Clear();
             }
 
-            Console.WriteLine(printEnterChoice);
-            Console.WriteLine(printContinueOrBackToAdmin);
+            Console.WriteLine(printAdminMenuEnterChoice);
+            Console.WriteLine(printTryAgainOrBackToAdmin);
             Console.WriteLine(printExitProgram);
             while ((aChoices != 9))
             {
@@ -235,8 +257,8 @@ namespace Pizzaria
             menu.SearchPizza(Convert.ToInt32(userChoices[0]));
             userChoices.Clear();
 
-            Console.WriteLine(printEnterChoice);
-            Console.WriteLine(printContinueOrBackToAdmin);
+            Console.WriteLine(printAdminMenuEnterChoice);
+            Console.WriteLine(printTryAgainOrBackToAdmin);
             Console.WriteLine(printExitProgram);
             while ((aChoices != 9))
             {
