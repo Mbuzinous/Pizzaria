@@ -7,10 +7,7 @@ namespace Pizzaria
         static void Main(string[] args)
         {
             Store bigMama = new Store();
-            
-            //Create
-            
-
+            bigMama.Run();
         }
     }
 }
