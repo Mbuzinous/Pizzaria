@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     //Abstract as i don't want class Product to be instantiated
     public abstract class Product
@@ -24,7 +17,7 @@ namespace Pizzaria
 
         //Properties
         public int MenuNr { get => _menuNr; set => _menuNr = value; }
-        public string Name { get => _name; protected set => _name = value; }
-        public int Price { get => _price; protected set => _price = value; }
+        public string Name { get => _name; }
+        public int Price { get => _price; }
     }
 }

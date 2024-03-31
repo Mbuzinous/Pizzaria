@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     public class Pizza : Product
     {
@@ -18,7 +12,7 @@ namespace Pizzaria
         }
 
         //Property
-        public string Topping { get => _topping; private set => _topping = value; }
+        public string Topping { get => _topping; }
 
         //Method
         public override string ToString()

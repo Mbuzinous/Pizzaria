@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     public class Customer : Profile
     {
-        //If time permits
-        public Customer(string name, int id) : base(name, id)
+        //Constructor
+        public Customer(string surname, string lastname, int age) : base(surname, lastname, age)
         {
+        }
+
+        //Method
+        public override string ToString()
+        {
+            return $"ID: {ID} Surname: {Surname.PadRight(20)} Lastname: {Lastname.PadRight(30)} Age: {Age}";
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     internal class Program
     {

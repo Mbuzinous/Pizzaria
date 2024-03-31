@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     public abstract class Profile
     {
-        //If time permits
-        private string _name;
+        //Instance Field
+        private string _surname;
+        private string _lastname;
+        private int _age;
         private int _id;
-        public Profile (string name, int id) 
+
+        //Constuctor
+        public Profile(string surname, string lastname, int age)
         {
-            _name = name;
-            _id = id;
+            _surname = surname;
+            _lastname = lastname;
+            _age = age;
         }
+
+        //Properties
+        public string Surname { get => _surname; }
+        public string Lastname { get => _lastname; }
+        public int Age { get => _age; }
+        public int ID { get => _id; set => _id = value; }
     }
 }

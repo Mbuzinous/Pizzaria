@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     /*Simply using a class for my strings for testing purposes, no idea if it's a good idea :-D
     It's a little easier to keep track of the string on my 2nd monitor as i can take the class window to my other monitor
@@ -32,6 +26,20 @@ namespace Pizzaria
         private string printPAUpdateMenuNumber = "\nEnter the menu Nr. of the pizza you want to UPDATE";
         private string printPADeleteMenuNumber = "\nEnter the menu Nr. of the pizza you want to DELETE";
 
+        //Customer Adminstration (CA)
+        private string printCACreate = "\n1. Add a new customer";
+        private string printCASearch = "2. Search a customer";
+        private string printCAUpdate = "3. Update a customer";
+        private string printCADelete = "4. Delete a customer";
+        private string printCANoCustomerError = "\nError - NO customers have been added. Please add one first. (press 1.)";
+        private string printCASurname = "Enter the surname";
+        private string printCALastname = "\nEnter the lastname";
+        private string printCAAge = "\nEnter the age";
+        private string printCACreateSuccess = "\nCongratulations customer has been added!\nHere's the list of customers:";
+        private string printCASearchID = "\nEnter the ID of the customer you want to SEARCH for";
+        private string printCAUpdateID = "\nEnter the ID of the customer you want to UPDATE";
+        private string printCADeleteID = "\nEnter the ID of the customer you want to DELETE";
+
         public Dialog() { }
 
         //General
@@ -54,5 +62,19 @@ namespace Pizzaria
         public string PrintPASearchMenuNumber { get => printPASearchMenuNumber; }
         public string PrintPAUpdateMenuNumber { get => printPAUpdateMenuNumber; }
         public string PrintPADeleteMenuNumber { get => printPADeleteMenuNumber; }
+
+        //Customer Administration
+        public string PrintCACreate { get => printCACreate; }
+        public string PrintCASearch { get => printCASearch; }
+        public string PrintCAUpdate { get => printCAUpdate; }
+        public string PrintCADelete { get => printCADelete; }
+        public string PrintCANoCustomerError { get => printCANoCustomerError; }
+        public string PrintCASurname { get => printCASurname; }
+        public string PrintCALastname { get => printCALastname; }
+        public string PrintCAAge { get => printCAAge; }
+        public string PrintCACreateSuccess { get => printCACreateSuccess; }
+        public string PrintCASearchID { get => printCASearchID; }
+        public string PrintCAUpdateID { get => printCAUpdateID; }
+        public string PrintCADeleteID { get => printCADeleteID; }
     }
 }
