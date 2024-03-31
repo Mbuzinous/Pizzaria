@@ -8,17 +8,22 @@ namespace Pizzaria
 {
     public class Pizza : Product
     {
+        //Instance Field
         private string _topping;
+
+        //Constructor
         public Pizza(string name, string topping, int price) : base(name, price)
         {
             _topping = topping;
         }
 
+        //Property
         public string Topping { get => _topping; private set => _topping = value; }
 
+        //Method
         public override string ToString()
         {
-            return $"Nr: {MenuId} Name: {Name.PadRight(20)} Topping: {Topping.PadRight(30)} Price: {Price}";
+            return $"Nr: {MenuNr} Name: {Name.PadRight(20)} Topping: {Topping.PadRight(30)} Price: {Price}";
         }
     }
 }

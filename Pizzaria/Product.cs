@@ -7,21 +7,23 @@ using System.Threading.Tasks;
 
 namespace Pizzaria
 {
+    //Abstract as i don't want class Product to be instantiated
     public abstract class Product
     {
-        private int _menuId;
-        private static int _idCounter = 1;
+        //Instance Field
+        private int _menuNr;
         private string _name;
         private int _price;
+
+        //Constuctor
         public Product(string name, int price)
         {
             _name = name;
             _price = price;
-            _menuId = _idCounter;
-            _idCounter++;
         }
 
-        public int MenuId { get => _menuId; set => _menuId = value; }
+        //Properties
+        public int MenuNr { get => _menuNr; set => _menuNr = value; }
         public string Name { get => _name; protected set => _name = value; }
         public int Price { get => _price; protected set => _price = value; }
     }
