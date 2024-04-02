@@ -17,7 +17,7 @@
 
         //Properties
         public int MenuNr { get => _menuNr; set => _menuNr = value; }
-        public string Name { get => _name; }
-        public int Price { get => _price; }
+        public string Name { get => _name; set => _name = value;}
+        public int Price { get => _price; set => _price = value; }
     }
 }

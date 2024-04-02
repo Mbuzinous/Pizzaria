@@ -31,16 +31,13 @@ namespace Pizzaria
         {
             foreach (Order existingOrder in orderList)
             {
-                Pizza pizza = existingOrder.Pizza;
-                Customer customer = existingOrder.Customer;
-
                 foreach (Pizza existingPizza in pizzaList)
                 {
-                    if (existingPizza.MenuNr == pizza.MenuNr)
+                    if (existingPizza.MenuNr == existingOrder.Pizza.MenuNr)
                     {
                         foreach (Customer existingCustomer in customerDictionary.Values)
                         {
-                            if (existingCustomer.CPR == customer.CPR)
+                            if (existingCustomer.CPR == existingOrder.Customer.CPR)
                             {
                                 Console.WriteLine($"\n{existingOrder}");
                                 Console.WriteLine($"{existingPizza}");
@@ -80,8 +77,12 @@ namespace Pizzaria
             {
                 if (existingOrder.ID == orderID)
                 {
+                    Pizza pizza = existingOrder.Pizza;
+                    Customer customer = existingOrder.Customer;
                     Console.WriteLine($"\nOrder with ID:{orderID} is found!");
-                    PrintOrders();
+                    Console.WriteLine($"{existingOrder}");
+                    Console.WriteLine($"{pizza}");
+                    Console.WriteLine($"{customer}");
                     return;
                 }
             }
@@ -89,15 +90,19 @@ namespace Pizzaria
         }
 
         //Method - Update
-        public void UpdateOrder(int orderID, int customerCPR, int pizzaMenuNumber, string name, string toppings, int price)
+        public void UpdateOrder(int orderID, int pizzaMenuNumber)
         {
-            Pizza updatedPizza = new Pizza(name, toppings, price);
-            pizzaList[pizzaMenuNumber - 1] = updatedPizza;
-            updatedPizza.MenuNr = pizzaMenuNumber;
+            foreach (Order existingOrder in orderList)
+            {
+                if (existingOrder.ID == orderID)
+                {
+                    Order updatedOrder = new Order(customerDictionary[existingOrder.Customer.CPR], pizzaList[pizzaMenuNumber - 1]);
+                    orderList[orderID - 1] = updatedOrder;
+                    updatedOrder.ID = orderID;
+                    return;
+                }
+            }
 
-            Order updatedOrder = new Order(customerDictionary[customerCPR], pizzaList[pizzaMenuNumber - 1]);
-            orderList[orderID - 1] = updatedOrder;
-            updatedOrder.ID = orderID;
         }
 
 

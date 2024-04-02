@@ -12,7 +12,7 @@
         }
 
         //Property
-        public string Topping { get => _topping; }
+        public string Topping { get => _topping; set => _topping = value; }
 
         //Method
         public override string ToString()

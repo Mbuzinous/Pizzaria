@@ -265,10 +265,26 @@
         public void AdminUpdateOrder()
         {
             Console.Clear();
-            Console.WriteLine("Heres the list of orders");
-            orderCatalog.PrintOrders();
-
-            Console.WriteLine("Enter the order-number of the order you want to UPDATE");
+            Console.WriteLine("Here's the list of orders");
+            foreach (Order existingOrder in orderList)
+            {
+                foreach (Pizza existingPizza in pizzaList)
+                {
+                    if (existingPizza.MenuNr == existingOrder.Pizza.MenuNr)
+                    {
+                        foreach (Customer existingCustomer in customerDictionary.Values)
+                        {
+                            if (existingCustomer.CPR == existingOrder.Customer.CPR)
+                            {
+                                Console.WriteLine($"\n{existingOrder}");
+                                Console.WriteLine($"{existingPizza}");
+                                Console.WriteLine($"{existingCustomer}\n");
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("Enter the order number you want to UPDATE");
             NumericChoiceValidator();
 
             if ((NumericChoice <= 0) || (NumericChoice > orderList.Count))
@@ -277,49 +293,25 @@
             }
             else
             {
-                //Vi var nåede her til,
-                Console.WriteLine("\nPlease write your CPR number");
-                while (!customerDictionary.ContainsKey(NumericChoice2))
+                Console.WriteLine("\nHere's the Pizza menu");
+                foreach (Pizza createdPizza in pizzaList)
+                {
+                    Console.WriteLine(createdPizza);
+                }
+
+                Console.WriteLine("\nChoose your new pizza");
+                while (true)
                 {
                     NumericChoiceValidator2();
-                    if (!customerDictionary.ContainsKey(NumericChoice2))
+                    if (NumericChoice2 < 1 || NumericChoice2 > pizzaList.Count)
                     {
-                        Console.WriteLine($"ERROR! Customer with CPR: {NumericChoice2} --- Does not exist!");
+                        Console.WriteLine("Pizza does not exist - Please write an existing pizza number");
                     }
                     else
                     {
-                        Console.WriteLine("\nWrite the menu number of the pizza you want to update");
-                        NumericChoiceValidator3();
-
-                        Console.Clear();
-                        foreach (Pizza createdPizza in pizzaList)
-                        {
-                            Console.WriteLine(createdPizza);
-                        }
-                        Console.WriteLine("\nWhich other pizza would you like to choose?");
-                        NumericChoiceValidator4();
-                        while ((NumericChoice4 < 1 || NumericChoice4 > pizzaList.Count))
-                        {
-                            if (NumericChoice4 < 1 || NumericChoice4 > pizzaList.Count)
-                            {
-                                Console.WriteLine("Pizza does not existm - Please write an existing pizza number");
-                            }
-                            else
-                            {
-                                foreach (Pizza createdPizza in pizzaList)
-                                {
-                                    if (createdPizza.MenuNr == NumericChoice4)
-                                    {
-                                        string iteratedPizzaName = createdPizza.Name;
-                                        string iteratedPizzaTopping = createdPizza.Topping;
-                                        int iteratedPizzaPrice = createdPizza.Price;
-                                        orderCatalog.UpdateOrder(NumericChoice, NumericChoice2, NumericChoice3, iteratedPizzaName, iteratedPizzaTopping, iteratedPizzaPrice);
-                                        break;
-                                    }
-                                }
-                                Console.WriteLine("\nCongrats your order has been update!");
-                            }
-                        }
+                        orderCatalog.UpdateOrder(NumericChoice, NumericChoice2);
+                        Console.WriteLine("\nCongrats your order has been updated!");
+                        break;
                     }
                 }
             }

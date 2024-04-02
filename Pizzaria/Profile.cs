@@ -19,8 +19,8 @@
 
         //Properties
         public int CPR { get => _cpr; set => _cpr = value; }
-        public string Surname { get => _surname; }
-        public string Lastname { get => _lastname; }
-        public int Age { get => _age; }
+        public string Surname { get => _surname; set => _surname = value; }
+        public string Lastname { get => _lastname; set => _lastname = value; }
+        public int Age { get => _age; set => _age = value; }
     }
 }
