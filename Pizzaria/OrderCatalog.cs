@@ -2,19 +2,24 @@
 {
     public class OrderCatalog : StoreManager
     {
-
+        public List<Pizza> pizzaList;
+        public Dictionary<int, Customer> customerDictionary;
+        public List<Order> orderList;
         //Constuctor
-        public OrderCatalog(Store store) : base(store)
+        public OrderCatalog(Store store, List<Pizza> pizzaList, Dictionary<int, Customer> customerDictionary, List<Order> orderList) : base(store)
         {
+            this.pizzaList = pizzaList;
+            this.customerDictionary = customerDictionary;
+            this.orderList = orderList;
         }
 
         public void CreateOrder(int customerCPR, int pizzaMenuNumber)
         {
-            Order order = new Order(CustomerDictionary[customerCPR], PizzaList[pizzaMenuNumber - 1]);
-            OrderList.Add(order);
-            foreach (Order createdOrder in OrderList)
+            Order order = new Order(customerDictionary[customerCPR], pizzaList[pizzaMenuNumber - 1]);
+            orderList.Add(order);
+            foreach (Order createdOrder in orderList)
             {
-                int index = OrderList.IndexOf(createdOrder);
+                int index = orderList.IndexOf(createdOrder);
                 createdOrder.ID = index + 1;
             }
         }
@@ -22,16 +27,16 @@
         //Method - Read
         public void PrintOrders()
         {
-            foreach (Order existingOrder in OrderList)
+            foreach (Order existingOrder in orderList)
             {
                 Console.WriteLine(existingOrder);
             }
         }
         public void PrintOrderConfirmation(int pizzaMenuNumber)
         {
-            foreach (Order existingOrder in OrderList)
+            foreach (Order existingOrder in orderList)
             {
-                    foreach (Pizza existingPizza in PizzaList)
+                    foreach (Pizza existingPizza in pizzaList)
                     {
                         if (existingPizza.MenuNr == pizzaMenuNumber)
                         {
@@ -44,7 +49,7 @@
 
         public void SearchOrder(int orderID)
         {
-            foreach (Order existingOrder in OrderList)
+            foreach (Order existingOrder in orderList)
             {
                 if (existingOrder.ID == orderID)
                 {
@@ -60,11 +65,11 @@
         public void UpdateOrder(int orderID, int customerCPR, int pizzaMenuNumber, string name, string toppings, int price)
         {
                 Pizza updatedPizza = new Pizza(name, toppings, price);
-                PizzaList[pizzaMenuNumber - 1] = updatedPizza;
+                pizzaList[pizzaMenuNumber - 1] = updatedPizza;
                 updatedPizza.MenuNr = pizzaMenuNumber;
 
-                Order updatedOrder = new Order(CustomerDictionary[customerCPR], PizzaList[pizzaMenuNumber - 1]);
-                OrderList[orderID - 1] = updatedOrder;
+                Order updatedOrder = new Order(customerDictionary[customerCPR], pizzaList[pizzaMenuNumber - 1]);
+                orderList[orderID - 1] = updatedOrder;
                 updatedOrder.ID = orderID;
         }
 
@@ -72,18 +77,18 @@
         //Method - Delete
         public void DeleteOrder(int orderID)
         {
-            if (orderID < 1 || orderID > OrderList.Count)
+            if (orderID < 1 || orderID > orderList.Count)
             {
                 Console.WriteLine($"Order with ID: {orderID} does not exist");
                 return;
             }
 
-            OrderList.RemoveAt(orderID - 1);
+            orderList.RemoveAt(orderID - 1);
             Console.WriteLine($"Order with ID: {orderID} has been deleted");
 
-            for (int i = orderID - 1; i < OrderList.Count; i++)
+            for (int i = orderID - 1; i < orderList.Count; i++)
             {
-                OrderList[i].ID = i + 1;
+                orderList[i].ID = i + 1;
             }
         }
     }

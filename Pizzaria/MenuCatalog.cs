@@ -3,24 +3,27 @@
     //CRUD Methods of menu items (Pizza)
     public class MenuCatalog : StoreManager
     {
-        public MenuCatalog(Store store) : base(store)
+        public List<Pizza> pizzaList;
+
+        public MenuCatalog(Store store, List<Pizza> pizzaList) : base(store)
         {
+            this.pizzaList = pizzaList;
         }
 
         //Method - Create
         public void CreatePizza(string name, string topping, int price)
         {
-            /*1. When CreatePizza is called and is filled out, it creates a new pizza object and puts it in the PizzaList
-              2. It then iterates through all the pizzas in the PizzaList and finds the current pizza's index.
+            /*1. When CreatePizza is called and is filled out, it creates a new pizza object and puts it in the pizzaList
+              2. It then iterates through all the pizzas in the pizzaList and finds the current pizza's index.
               3. Then sets the pizza's menu Nr. to match it's index+1 (As i want the lowest pizza menu Nr. to be 1 and not 0 on the menu).
-              4. This ensures that all the pizzas in the PizzaList, has a dynamically growing menu Nr. when a pizza is created,
+              4. This ensures that all the pizzas in the pizzaList, has a dynamically growing menu Nr. when a pizza is created,
                  (otherwise when you have created 4 pizzas then delete 2
                  the next pizza you create will have menu Nr. 5, instead of having a "dinamically growing menu Nr. 2")*/
             Pizza pizza = new Pizza(name, topping, price);
-            PizzaList.Add(pizza);
-            foreach (Pizza createdPizza in PizzaList)
+            pizzaList.Add(pizza);
+            foreach (Pizza createdPizza in pizzaList)
             {
-                int index = PizzaList.IndexOf(createdPizza);
+                int index = pizzaList.IndexOf(createdPizza);
                 createdPizza.MenuNr = index + 1;
             }
         }
@@ -28,10 +31,10 @@
         //Method - Read
         public void PrintMenu()
         {
-            /*Iterates through all the created pizzas in the PizzaList
+            /*Iterates through all the created pizzas in the pizzaList
               and writes each one of them one by one, until the last created pizza in the pizzalist.
               It will write what's written in the ToString method under the Pizza class*/
-            foreach (Pizza createdPizza in PizzaList)
+            foreach (Pizza createdPizza in pizzaList)
             {
                 Console.WriteLine(createdPizza);
             }
@@ -39,10 +42,10 @@
 
         public void SearchPizza(int menuNr)
         {
-            /*Iterates through all the pizzas in PizzaList:
+            /*Iterates through all the pizzas in pizzaList:
               If the currently iterating pizza's menu Nr. matches the provided-menu Nr. it then tells us the pizza exist, and the METHOD exits (return;)
               If none of the pizza's menu Nr. matches the provided-menu Nr., then it writes the provided-menu Nr. does not exist*/
-            foreach (Pizza createdPizza in PizzaList)
+            foreach (Pizza createdPizza in pizzaList)
             {
                 if (createdPizza.MenuNr == menuNr)
                 {
@@ -62,7 +65,7 @@
                  (Menu number is set to start at 1, while index starts at 0, so menu number will always be 1 higher than the index)
               3. Then the updatedPizza's menu Nr. is set to whatver menu Nr. the user had provided*/
             Pizza updatedPizza = new Pizza(name, toppings, price);
-            PizzaList[menuNumber - 1] = updatedPizza;
+            pizzaList[menuNumber - 1] = updatedPizza;
             updatedPizza.MenuNr = menuNumber;
         }
 
@@ -78,18 +81,18 @@
                  and updates their menu Nr. to be [at their current idex + 1]
                  (Otherwise when a pizza is deleted, the menu numbers above it, remains with their old menu number i.e.
                   5 pizzas has been created, i delete nr. 3, then the list would say mr. 1, 2, 4, 5 instead of a "dynamical 1, 2, 3, 4")*/
-            if (menuNumber < 1 || menuNumber > PizzaList.Count)
+            if (menuNumber < 1 || menuNumber > pizzaList.Count)
             {
                 return;
             }
 
-            PizzaList.RemoveAt(menuNumber - 1);
+            pizzaList.RemoveAt(menuNumber - 1);
             Console.WriteLine($"Pizza Nr. {menuNumber} has been deleted");
 
             // Update the menu numbers of the remaining pizzas
-            for (int i = menuNumber - 1; i < PizzaList.Count; i++)
+            for (int i = menuNumber - 1; i < pizzaList.Count; i++)
             {
-                PizzaList[i].MenuNr = i + 1;
+                pizzaList[i].MenuNr = i + 1;
             }
         }
     }

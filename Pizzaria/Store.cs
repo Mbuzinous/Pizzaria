@@ -14,9 +14,14 @@ namespace Pizzaria
 
         public Store()
         {
-            pizzaAdminstrationSystem = new PizzaManager(this);
-            customerAdministrationSystem = new CustomerManager(this);
-            orderAdministrationSystem = new OrderManager(this);
+            Dictionary<int, Customer> customerDictionary = new Dictionary<int, Customer>();
+            List<Pizza> pizzaList = new List<Pizza>();
+            List<Order> orderList = new List<Order>();
+
+
+            pizzaAdminstrationSystem = new PizzaManager(this, pizzaList);
+            customerAdministrationSystem = new CustomerManager(this, customerDictionary);
+            orderAdministrationSystem = new OrderManager(this, pizzaList, customerDictionary, orderList);
         }
         public void Run()
         {

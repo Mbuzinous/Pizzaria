@@ -5,22 +5,25 @@ namespace Pizzaria
     //CRUD Methods of Customers
     public class CustomerCatalog : StoreManager
     {
+        public Dictionary<int, Customer> customerDictionary;
         //Constuctor
-        public CustomerCatalog(Store store) : base(store)
+        public CustomerCatalog(Store store, Dictionary<int, Customer> customerDictionary) : base(store)
         {
+            this.customerDictionary = customerDictionary;
+
         }
 
         //Method - Create
         public void CreateCustomer(int cpr, string surname, string lastsurname, int age)
         {
             Customer customer = new Customer(cpr, surname, lastsurname, age);
-            CustomerDictionary.Add(customer.CPR, customer);
+            customerDictionary.Add(customer.CPR, customer);
         }
 
         //Method - Read
         public void PrintCustomers()
         {
-            foreach (Customer existingCustomer in CustomerDictionary.Values)
+            foreach (Customer existingCustomer in customerDictionary.Values)
             {
                 Console.WriteLine(existingCustomer);
             }
@@ -28,7 +31,7 @@ namespace Pizzaria
 
         public void SearchCustomer(int cpr)
         {
-            foreach (Customer existingCustomer in CustomerDictionary.Values)
+            foreach (Customer existingCustomer in customerDictionary.Values)
             {
                 if (existingCustomer.CPR == cpr)
                 {
@@ -43,18 +46,18 @@ namespace Pizzaria
         public void UpdateCustomer(int cpr, string surname, string lastsurname, int age)
         {
             Customer updatedCustomer = new Customer(cpr, surname, lastsurname, age);
-            CustomerDictionary[updatedCustomer.CPR] = updatedCustomer;
+            customerDictionary[updatedCustomer.CPR] = updatedCustomer;
         }
 
         //Method - Delete
         public void DeleteCustomer(int cpr)
         {
-            if (CustomerDictionary.Remove(cpr) == false)
+            if (customerDictionary.Remove(cpr) == false)
             {
                 Console.WriteLine($"Customer with CPR: {cpr} does not exist");
                 return;
             }
-            CustomerDictionary.Remove(cpr);
+            customerDictionary.Remove(cpr);
             Console.WriteLine($"Customer with CPR: {cpr} has been deleted");
         }
     }

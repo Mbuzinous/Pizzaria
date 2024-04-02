@@ -3,9 +3,16 @@
     public class OrderManager : StoreManager
     {
         OrderCatalog orderCatalog;
-        public OrderManager(Store store) : base(store)
+        public List<Pizza> pizzaList;
+        public Dictionary<int, Customer> customerDictionary;
+        public List<Order> orderList;
+        public OrderManager(Store store, List<Pizza> pizzaList, Dictionary<int, Customer> customerDictionary, List<Order> orderList) : base(store)
         {
-            orderCatalog = new OrderCatalog(store);
+            orderCatalog = new OrderCatalog(store, pizzaList, customerDictionary, orderList);
+            this.pizzaList = pizzaList;
+            this.customerDictionary = customerDictionary;
+            this.orderList = orderList;
+
         }
 
         public void OrderAdminPage()
@@ -69,14 +76,14 @@
             {
                 Console.WriteLine("\nPlease write your CPR number");
                 NumericChoiceValidator();
-                foreach (Customer existingCustomer in CustomerDictionary.Values)
+                foreach (Customer existingCustomer in customerDictionary.Values)
                 {
                     if (existingCustomer.CPR == NumericChoice)
                     {
                         Console.WriteLine($"\nCustomer with CPR:{NumericChoice} is found!");
                         Console.WriteLine($"{existingCustomer}\n");
 
-                        foreach (Pizza createdPizza in PizzaList)
+                        foreach (Pizza createdPizza in pizzaList)
                         {
                             Console.WriteLine(createdPizza);
                         }
@@ -110,11 +117,11 @@
                 NumericChoiceValidator2();
 
                 Customer customer = new Customer(NumericChoice, userChoices[0], userChoices[1], NumericChoice2);
-                CustomerDictionary.Add(customer.CPR, customer);
+                customerDictionary.Add(customer.CPR, customer);
                 userChoices.Clear();
 
                 Console.WriteLine("\nCongratulations you're now a member of Big Mama pizza!\nHere's a list of our pizzas");
-                foreach (Pizza createdPizza in PizzaList)
+                foreach (Pizza createdPizza in pizzaList)
                 {
                     Console.WriteLine(createdPizza);
                 }
@@ -204,7 +211,7 @@
             NumericChoiceValidator();
             int orderNum = NumericChoice;
 
-            if ((NumericChoice <= 0) || (NumericChoice > OrderList.Count))
+            if ((NumericChoice <= 0) || (NumericChoice > orderList.Count))
             {
                 Console.WriteLine($"\nCannot UPDATE Order with ID: {NumericChoice} ---- Does not exist");
                 userChoices.Clear();
@@ -221,7 +228,7 @@
                 NumericChoiceValidator();
                 int menuNum = NumericChoice;
 
-                foreach (Pizza createdPizza in PizzaList)
+                foreach (Pizza createdPizza in pizzaList)
                 {
                     Console.WriteLine(createdPizza);
                 }
@@ -229,7 +236,7 @@
                 NumericChoiceValidator();
                 int menuNum2 = NumericChoice;
 
-                foreach (Pizza createdPizza in PizzaList)
+                foreach (Pizza createdPizza in pizzaList)
                 {
                     if (createdPizza.MenuNr == menuNum2)
                     {
@@ -277,7 +284,7 @@
             Console.WriteLine(Dialog.PrintOADelete);
             NumericChoiceValidator();
 
-            if ((NumericChoice <= 0) || (NumericChoice > OrderList.Count))
+            if ((NumericChoice <= 0) || (NumericChoice > orderList.Count))
             {
                 Console.WriteLine($"\nCannot DELETE Order with ID: {NumericChoice} ---- Does not exist");
             }

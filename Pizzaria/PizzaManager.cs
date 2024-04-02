@@ -3,9 +3,11 @@
     public class PizzaManager : StoreManager
     {
         MenuCatalog menuCatalog;
-        public PizzaManager(Store store) : base(store)
+        public List<Pizza> pizzaList;
+        public PizzaManager(Store store, List<Pizza> pizzaList) : base(store)
         {
-            menuCatalog = new MenuCatalog(store);
+            menuCatalog = new MenuCatalog(store, pizzaList);
+            this.pizzaList = pizzaList;
         }
 
         //Methods - Pizza System
@@ -39,7 +41,7 @@
                         AdminCreatePizza();
                         break;
                     case 2:
-                        if (PizzaList.Count >= 1)
+                        if (pizzaList.Count >= 1)
                         {
                             AdminSearchPizza();
                         }
@@ -49,7 +51,7 @@
                         }
                         break;
                     case 3:
-                        if (PizzaList.Count >= 1)
+                        if (pizzaList.Count >= 1)
                         {
                             AdminUpdatePizza();
                         }
@@ -59,7 +61,7 @@
                         }
                         break;
                     case 4:
-                        if (PizzaList.Count >= 1)
+                        if (pizzaList.Count >= 1)
                         {
                             AdminDeletePizza();
                         }
@@ -182,7 +184,7 @@
             NumericChoiceValidator();
 
             //Erro if the provided menu Nr. is (less than or equals 0) or is greater than the amount of created pizzas
-            if ((NumericChoice <= 0) || (NumericChoice > PizzaList.Count))
+            if ((NumericChoice <= 0) || (NumericChoice > pizzaList.Count))
             {
                 Console.WriteLine($"\nCannot UPDATE Pizza Nr: {NumericChoice} ---- Does not exist");
                 userChoices.Clear();
@@ -238,7 +240,7 @@
             NumericChoiceValidator();
 
             //Erro if the provided menu Nr. is (less than or equals 0) or is greater than the amount of created pizzas
-            if ((NumericChoice <= 0) || (NumericChoice > PizzaList.Count))
+            if ((NumericChoice <= 0) || (NumericChoice > pizzaList.Count))
             {
                 Console.WriteLine($"\nCannot DELETE Pizza Nr: {NumericChoice} ---- Does not exist");
             }

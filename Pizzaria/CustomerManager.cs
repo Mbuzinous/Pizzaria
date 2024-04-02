@@ -5,9 +5,11 @@ namespace Pizzaria
     public class CustomerManager : StoreManager
     {
         CustomerCatalog customerCatalog;
-        public CustomerManager(Store store) : base(store)
+        public Dictionary<int, Customer> customerDictionary;
+        public CustomerManager(Store store, Dictionary<int, Customer> customerDictionary) : base(store)
         {
-            customerCatalog = new CustomerCatalog (store);
+            customerCatalog = new CustomerCatalog (store, customerDictionary);
+            this.customerDictionary = customerDictionary;
         }
 
         public void CustomerAdminPage()
@@ -33,7 +35,7 @@ namespace Pizzaria
                         AdminCreateCustomer();
                         break;
                     case 2:
-                        if (CustomerDictionary.Count >= 1)
+                        if (customerDictionary.Count >= 1)
                         {
                             AdminSearchCustomer();
                         }
@@ -43,7 +45,7 @@ namespace Pizzaria
                         }
                         break;
                     case 3:
-                        if (CustomerDictionary.Count >= 1)
+                        if (customerDictionary.Count >= 1)
                         {
                             AdminUpdateCustomer();
                         }
@@ -53,7 +55,7 @@ namespace Pizzaria
                         }
                         break;
                     case 4:
-                        if (CustomerDictionary.Count >= 1)
+                        if (customerDictionary.Count >= 1)
                         {
                             AdminDeleteCustomer();
                         }
@@ -169,7 +171,7 @@ namespace Pizzaria
             Console.WriteLine(Dialog.PrintCAUpdateCPR);
             NumericChoiceValidator();
 
-            if (!CustomerDictionary.ContainsKey(NumericChoice))
+            if (!customerDictionary.ContainsKey(NumericChoice))
             {
                 Console.WriteLine($"\nCannot UPDATE Customer with ID: {NumericChoice} ---- Does not exist");
             }
@@ -222,7 +224,7 @@ namespace Pizzaria
             Console.WriteLine(Dialog.PrintCADeleteCPR);
             NumericChoiceValidator();
 
-            if (!CustomerDictionary.ContainsKey(NumericChoice))
+            if (!customerDictionary.ContainsKey(NumericChoice))
             {
                 Console.WriteLine($"\nCannot DELETE Customer with ID: {NumericChoice} ---- Does not exist");
             }
