@@ -1,75 +1,61 @@
-﻿namespace Pizzaria
+﻿using static System.Formats.Asn1.AsnWriter;
+
+namespace Pizzaria
 {
     //CRUD Methods of Customers
-    public class CustomerCatalog
+    public class CustomerCatalog : StoreManager
     {
-        //Instance Field
-        public List<Customer> customerList;
-
         //Constuctor
-        public CustomerCatalog()
+        public CustomerCatalog(Store store) : base(store)
         {
-            customerList = new List<Customer>();
         }
 
         //Method - Create
-        public void CreateCustomer(string surname, string lastsurname, int age)
+        public void CreateCustomer(int cpr, string surname, string lastsurname, int age)
         {
-            Customer customer = new Customer(surname, lastsurname, age);
-            customerList.Add(customer);
-            foreach (Customer createdCustomer in customerList)
-            {
-                int index = customerList.IndexOf(createdCustomer);
-                createdCustomer.ID = index + 1;
-            }
+            Customer customer = new Customer(cpr, surname, lastsurname, age);
+            CustomerDictionary.Add(customer.CPR, customer);
         }
 
         //Method - Read
         public void PrintCustomers()
         {
-            foreach (Customer createdCustomer in customerList)
+            foreach (Customer existingCustomer in CustomerDictionary.Values)
             {
-                Console.WriteLine(createdCustomer);
+                Console.WriteLine(existingCustomer);
             }
         }
 
-        public void SearchCustomer(int id)
+        public void SearchCustomer(int cpr)
         {
-            foreach (Customer createdCustomer in customerList)
+            foreach (Customer existingCustomer in CustomerDictionary.Values)
             {
-                if (createdCustomer.ID == id)
+                if (existingCustomer.CPR == cpr)
                 {
-                    Console.WriteLine($"\nCustomer with ID:{id} is found!");
-                    Console.WriteLine(createdCustomer);
-                    return;
+                    Console.WriteLine($"\nCustomer with CPR:{cpr} is found!");
+                    Console.WriteLine(existingCustomer);
                 }
             }
-            Console.WriteLine($"\nCustomer ID: {id} does not exist.");
+            Console.WriteLine($"\nCustomer with CPR: {cpr} does not exist.");
         }
 
         //Method - Update
-        public void UpdateCustomer(int id, string surname, string lastsurnames, int age)
+        public void UpdateCustomer(int cpr, string surname, string lastsurname, int age)
         {
-            Customer updatedCustomer = new Customer(surname, lastsurnames, age);
-            customerList[id - 1] = updatedCustomer;
-            updatedCustomer.ID = id;
+            Customer updatedCustomer = new Customer(cpr, surname, lastsurname, age);
+            CustomerDictionary[updatedCustomer.CPR] = updatedCustomer;
         }
 
         //Method - Delete
-        public void DeleteCustomer(int id)
+        public void DeleteCustomer(int cpr)
         {
-            if (id < 1 || id > customerList.Count)
+            if (CustomerDictionary.Remove(cpr) == false)
             {
+                Console.WriteLine($"Customer with CPR: {cpr} does not exist");
                 return;
             }
-
-            customerList.RemoveAt(id - 1);
-            Console.WriteLine($"Customer with ID: {id} has been deleted");
-
-            for (int i = id - 1; i < customerList.Count; i++)
-            {
-                customerList[i].ID = i + 1;
-            }
+            CustomerDictionary.Remove(cpr);
+            Console.WriteLine($"Customer with CPR: {cpr} has been deleted");
         }
     }
 }

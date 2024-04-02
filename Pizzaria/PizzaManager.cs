@@ -1,24 +1,11 @@
 ﻿namespace Pizzaria
 {
-    public class PizzaAdministration
+    public class PizzaManager : StoreManager
     {
-        //Instanceiating so i can use the methods of the classes
-        MenuCatalog menu = new MenuCatalog();
-        Dialog dialog = new Dialog();
-
-        private List<string> userChoices = new List<string>();
-        int numericChoice = 0;
-        int numericChoice2 = 0;
-
-        //Constructor - Currently set so when PizzaAdminsration is instantiated, i also call the method PizzaAdminPage()
-        public PizzaAdministration()
+        MenuCatalog menuCatalog;
+        public PizzaManager(Store store) : base(store)
         {
-
-        }
-
-        public void Run()
-        {
-            PizzaAdminPage();
+            menuCatalog = new MenuCatalog(store);
         }
 
         //Methods - Pizza System
@@ -26,56 +13,64 @@
         {
             //Console.Clear for a clean page everytime method is called
             Console.Clear();
-            Console.WriteLine(dialog.PrintExitProgram);
-            menu.PrintMenu();
 
-            Console.WriteLine(dialog.PrintPACreate);
-            Console.WriteLine(dialog.PrintPASearch);
-            Console.WriteLine(dialog.PrintPAUpdate);
-            Console.WriteLine(dialog.PrintPADelete);
+            Console.WriteLine(Dialog.PrintExitProgram);
+            menuCatalog.PrintMenu();
 
-            Console.WriteLine(dialog.PrintEnterChoice);
+            Console.WriteLine(Dialog.PrintPACreate);
+            Console.WriteLine(Dialog.PrintPASearch);
+            Console.WriteLine(Dialog.PrintPAUpdate);
+            Console.WriteLine(Dialog.PrintPADelete);
+            Console.WriteLine(Dialog.PrintBackToFront);
+
+            Console.WriteLine(Dialog.PrintEnterChoice);
+
+            NumericChoice = 0;
             //Regardless of any actions we do, Admin Page will be there unless we do one of the actions in the switch
-            while (numericChoice != 99)
+            while (true)
             {
                 //Validates what's written, is the type int and not anything else
                 NumericChoiceValidator();
                 //Whichever the number after "case" we write, we are taken into the method
-                switch (numericChoice)
+                switch (NumericChoice)
                 {
                     //We can always create a pizza, but in order to do any of the other methods, we need to have atleast 1 pizza created
                     case 1:
                         AdminCreatePizza();
                         break;
                     case 2:
-                        if (menu.pizzaList.Count >= 1)
+                        if (PizzaList.Count >= 1)
                         {
                             AdminSearchPizza();
                         }
                         else
                         {
-                            Console.WriteLine(dialog.PrintPANoPizzaError);
+                            Console.WriteLine(Dialog.PrintPANoPizzaError);
                         }
                         break;
                     case 3:
-                        if (menu.pizzaList.Count >= 1)
+                        if (PizzaList.Count >= 1)
                         {
                             AdminUpdatePizza();
                         }
                         else
                         {
-                            Console.WriteLine(dialog.PrintPANoPizzaError);
+                            Console.WriteLine(Dialog.PrintPANoPizzaError);
                         }
                         break;
                     case 4:
-                        if (menu.pizzaList.Count >= 1)
+                        if (PizzaList.Count >= 1)
                         {
                             AdminDeletePizza();
                         }
                         else
                         {
-                            Console.WriteLine(dialog.PrintPANoPizzaError);
+                            Console.WriteLine(Dialog.PrintPANoPizzaError);
                         }
+                        break;
+                    //Write 5 and you return to front page
+                    case 5:
+                        FrontPage();
                         break;
                     //Write 99 and ENTER then program will exit
                     case 99:
@@ -83,7 +78,7 @@
                         break;
                     //If none of the things you typed are in the "cases" then write error
                     default:
-                        Console.WriteLine(dialog.PrintInvalidNumberError);
+                        Console.WriteLine(Dialog.PrintInvalidNumberError);
                         break;
                 }
             }
@@ -93,34 +88,34 @@
         public void AdminCreatePizza()
         {
             Console.Clear();
-            menu.PrintMenu();
+            menuCatalog.PrintMenu();
 
             //String list for user choices as i have more than one of the same type of answer
-            Console.WriteLine(dialog.PrintPACreateName);
+            Console.WriteLine(Dialog.PrintPACreateName);
             userChoices.Add(Console.ReadLine());
 
-            Console.WriteLine(dialog.PrintPACreateTopping);
+            Console.WriteLine(Dialog.PrintPACreateTopping);
             userChoices.Add(Console.ReadLine());
 
-            Console.WriteLine(dialog.PrintPACreatePrice);
+            Console.WriteLine(Dialog.PrintPACreatePrice);
             NumericChoiceValidator();
 
             //Takes the users choices and uses them as arguements for the CreatePizza parameter
-            menu.CreatePizza(userChoices[0], userChoices[1], numericChoice);
+            menuCatalog.CreatePizza(userChoices[0], userChoices[1], NumericChoice);
             userChoices.Clear();
 
-            Console.WriteLine(dialog.PrintPACreateSuccess);
-            menu.PrintMenu();
+            Console.WriteLine(Dialog.PrintPACreateSuccess);
+            menuCatalog.PrintMenu();
 
             //Could use delegates for this repeated code here but we haven't learned that yet ;-)
-            Console.WriteLine(dialog.PrintEnterChoice);
-            Console.WriteLine(dialog.PrintAgainOrBack);
-            Console.WriteLine(dialog.PrintExitProgram);
-
-            while ((numericChoice != 99))
+            Console.WriteLine(Dialog.PrintEnterChoice);
+            Console.WriteLine(Dialog.PrintAgainOrBack);
+            Console.WriteLine(Dialog.PrintExitProgram);
+            NumericChoice = 0;
+            while ((NumericChoice != 99))
             {
                 NumericChoiceValidator();
-                switch (numericChoice)
+                switch (NumericChoice)
                 {
                     case 1:
                         //CallMethodDelegate would be here
@@ -133,7 +128,7 @@
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine(dialog.PrintInvalidNumberError);
+                        Console.WriteLine(Dialog.PrintInvalidNumberError);
                         break;
                 }
             }
@@ -143,21 +138,22 @@
         public void AdminSearchPizza()
         {
             Console.Clear();
-            menu.PrintMenu();
+            menuCatalog.PrintMenu();
 
-            Console.WriteLine(dialog.PrintPASearchMenuNumber);
+            Console.WriteLine(Dialog.PrintPASearchMenuNumber);
             NumericChoiceValidator();
 
-            menu.SearchPizza(numericChoice);
+            menuCatalog.SearchPizza(NumericChoice);
 
             //Could use delegates for this repeated code here but we haven't learned that yet ;-)
-            Console.WriteLine(dialog.PrintEnterChoice);
-            Console.WriteLine(dialog.PrintAgainOrBack);
-            Console.WriteLine(dialog.PrintExitProgram);
-            while ((numericChoice != 99))
+            Console.WriteLine(Dialog.PrintEnterChoice);
+            Console.WriteLine(Dialog.PrintAgainOrBack);
+            Console.WriteLine(Dialog.PrintExitProgram);
+            NumericChoice = 0;
+            while ((NumericChoice != 99))
             {
                 NumericChoiceValidator();
-                switch (numericChoice)
+                switch (NumericChoice)
                 {
                     case 1:
                         //CallMethodDelegate would be here
@@ -170,7 +166,7 @@
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine(dialog.PrintInvalidNumberError);
+                        Console.WriteLine(Dialog.PrintInvalidNumberError);
                         break;
                 }
             }
@@ -180,52 +176,40 @@
         public void AdminUpdatePizza()
         {
             Console.Clear();
-            menu.PrintMenu();
+            menuCatalog.PrintMenu();
 
-            Console.WriteLine(dialog.PrintPAUpdateMenuNumber);
+            Console.WriteLine(Dialog.PrintPAUpdateMenuNumber);
             NumericChoiceValidator();
 
             //Erro if the provided menu Nr. is (less than or equals 0) or is greater than the amount of created pizzas
-            if ((numericChoice <= 0) || (numericChoice > menu.pizzaList.Count))
+            if ((NumericChoice <= 0) || (NumericChoice > PizzaList.Count))
             {
-                Console.WriteLine($"\nCannot UPDATE Pizza Nr: {numericChoice} ---- Does not exist");
+                Console.WriteLine($"\nCannot UPDATE Pizza Nr: {NumericChoice} ---- Does not exist");
                 userChoices.Clear();
             }
             else
             {
-                Console.WriteLine(dialog.PrintPACreateName);
+                Console.WriteLine(Dialog.PrintPACreateName);
                 userChoices.Add(Console.ReadLine());
 
-                Console.WriteLine(dialog.PrintPACreateTopping);
+                Console.WriteLine(Dialog.PrintPACreateTopping);
                 userChoices.Add(Console.ReadLine());
 
-                Console.WriteLine(dialog.PrintPACreatePrice);
-                //Infinite loop as long as provided price is not int.
-                while (true)
-                {
-                    try
-                    {
-                        numericChoice2 = Convert.ToInt32(Console.ReadLine());
-                        break;
-                    }
-                    //When user writes something that isn't int, FormatException is catched
-                    catch (FormatException)
-                    {
-                        Console.WriteLine(dialog.PrintWrongFormatNumberError);
-                    }
-                }
-                menu.UpdatePizza(numericChoice, userChoices[0], userChoices[1], numericChoice2);
+                Console.WriteLine(Dialog.PrintPACreatePrice);
+                NumericChoiceValidator2();
+                menuCatalog.UpdatePizza(NumericChoice, userChoices[0], userChoices[1], NumericChoice2);
                 userChoices.Clear();
             }
 
             //Could use delegates for this repeated code here but we haven't learned that yet ;-)
-            Console.WriteLine(dialog.PrintEnterChoice);
-            Console.WriteLine(dialog.PrintAgainOrBack);
-            Console.WriteLine(dialog.PrintExitProgram);
-            while ((numericChoice != 99))
+            Console.WriteLine(Dialog.PrintEnterChoice);
+            Console.WriteLine(Dialog.PrintAgainOrBack);
+            Console.WriteLine(Dialog.PrintExitProgram);
+            NumericChoice = 0;
+            while ((NumericChoice != 99))
             {
                 NumericChoiceValidator();
-                switch (numericChoice)
+                switch (NumericChoice)
                 {
                     case 1:
                         //CallMethodDelegate would be here
@@ -238,7 +222,7 @@
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine(dialog.PrintInvalidNumberError);
+                        Console.WriteLine(Dialog.PrintInvalidNumberError);
                         break;
                 }
             }
@@ -248,30 +232,31 @@
         public void AdminDeletePizza()
         {
             Console.Clear();
-            menu.PrintMenu();
+            menuCatalog.PrintMenu();
 
-            Console.WriteLine(dialog.PrintPADeleteMenuNumber);
+            Console.WriteLine(Dialog.PrintPADeleteMenuNumber);
             NumericChoiceValidator();
 
             //Erro if the provided menu Nr. is (less than or equals 0) or is greater than the amount of created pizzas
-            if ((numericChoice <= 0) || (numericChoice > menu.pizzaList.Count))
+            if ((NumericChoice <= 0) || (NumericChoice > PizzaList.Count))
             {
-                Console.WriteLine($"\nCannot DELETE Pizza Nr: {numericChoice} ---- Does not exist");
+                Console.WriteLine($"\nCannot DELETE Pizza Nr: {NumericChoice} ---- Does not exist");
             }
             //Otherwise it's possible to delete a pizza
             else
             {
-                menu.DeletePizza(numericChoice);
+                menuCatalog.DeletePizza(NumericChoice);
             }
 
             //Could use delegates for this repeated code here but we haven't learned that yet ;-)
-            Console.WriteLine(dialog.PrintEnterChoice);
-            Console.WriteLine(dialog.PrintAgainOrBack);
-            Console.WriteLine(dialog.PrintExitProgram);
-            while ((numericChoice != 99))
+            Console.WriteLine(Dialog.PrintEnterChoice);
+            Console.WriteLine(Dialog.PrintAgainOrBack);
+            Console.WriteLine(Dialog.PrintExitProgram);
+            NumericChoice = 0;
+            while ((NumericChoice != 99))
             {
                 NumericChoiceValidator();
-                switch (numericChoice)
+                switch (NumericChoice)
                 {
                     case 1:
                         //CallMethodDelegate would be here
@@ -284,28 +269,8 @@
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine(dialog.PrintInvalidNumberError);
+                        Console.WriteLine(Dialog.PrintInvalidNumberError);
                         break;
-                }
-            }
-        }
-
-        //Found myself repeating these lines of codes
-        //It's just to make sure user doesn't write letters when they should write numbers, as it would close the program if that happened
-        public void NumericChoiceValidator()
-        {
-            while (true)
-            {
-                try
-                {
-                    //Reads whatever the user wrote and converts it into Int, then places it inside the numericChoice variable
-                    numericChoice = Convert.ToInt32(Console.ReadLine());
-                    break;
-                }
-                //If what's written is not of the type Integer, we catch FormatException to not close the program and inform user to write an Int number
-                catch (FormatException)
-                {
-                    Console.WriteLine(dialog.PrintWrongFormatNumberError);
                 }
             }
         }

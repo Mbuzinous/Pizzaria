@@ -3,14 +3,14 @@
     public class Customer : Profile
     {
         //Constructor
-        public Customer(string surname, string lastname, int age) : base(surname, lastname, age)
+        public Customer(int cpr, string surname, string lastname, int age) : base(cpr, surname, lastname, age)
         {
         }
 
         //Method
         public override string ToString()
         {
-            return $"ID: {ID} Surname: {Surname.PadRight(20)} Lastname: {Lastname.PadRight(30)} Age: {Age}";
+            return $"CPR: {CPR}     Surname: {Surname.PadRight(15)} Lastname: {Lastname.PadRight(15)} Age: {Age}";
         }
     }
 }

@@ -17,7 +17,7 @@
         //Method
         public override string ToString()
         {
-            return $"Nr: {MenuNr} Name: {Name.PadRight(20)} Topping: {Topping.PadRight(30)} Price: {Price}";
+            return $"Nr: {MenuNr}   Name: {Name.PadRight(20)} Topping: {Topping.PadRight(30)} Price: {Price}";
         }
     }
 }
