@@ -15,6 +15,7 @@ namespace Pizzaria
         private int numericChoice = 0;
         private int numericChoice2 = 0;
         private int numericChoice3 = 0;
+        private int numericChoice4 = 0;
 
         Store bigMama;
 
@@ -31,6 +32,7 @@ namespace Pizzaria
         //public List<Pizza> PizzaList { get => pizzaList; set => pizzaList = value; }
         //public List<Order> OrderList { get => orderList; set => orderList = value; }
         public Dialog Dialog { get => dialog; set => dialog = value; }
+        public int NumericChoice4 { get => numericChoice4; set => numericChoice4 = value; }
 
 
         //Found myself repeating these lines of codes
@@ -80,6 +82,22 @@ namespace Pizzaria
                 try
                 {
                     NumericChoice3 = Convert.ToInt32(Console.ReadLine());
+                    break;
+                }
+                //When user writes something that isn't int, FormatException is catched
+                catch (FormatException)
+                {
+                    Console.WriteLine(Dialog.PrintWrongFormatNumberError);
+                }
+            }
+        }
+        public void NumericChoiceValidator4()
+        {
+            while (true)
+            {
+                try
+                {
+                    NumericChoice4 = Convert.ToInt32(Console.ReadLine());
                     break;
                 }
                 //When user writes something that isn't int, FormatException is catched

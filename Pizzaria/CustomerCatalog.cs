@@ -16,8 +16,9 @@ namespace Pizzaria
         //Method - Create
         public void CreateCustomer(int cpr, string surname, string lastsurname, int age)
         {
+           
             Customer customer = new Customer(cpr, surname, lastsurname, age);
-            customerDictionary.Add(customer.CPR, customer);
+            customerDictionary.Add(cpr, customer);
         }
 
         //Method - Read
@@ -37,6 +38,7 @@ namespace Pizzaria
                 {
                     Console.WriteLine($"\nCustomer with CPR:{cpr} is found!");
                     Console.WriteLine(existingCustomer);
+                    break;
                 }
             }
             Console.WriteLine($"\nCustomer with CPR: {cpr} does not exist.");

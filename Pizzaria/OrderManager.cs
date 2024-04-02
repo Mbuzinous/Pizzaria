@@ -35,16 +35,44 @@
                 switch (NumericChoice)
                 {
                     case 1:
+                        if (pizzaList.Count >= 1)
+                        {
                             AdminCreateOrder();
+                        }
+                        else
+                        {
+                            Console.WriteLine(Dialog.PrintPANoPizzaError);
+                        }
                         break;
                     case 2:
+                        if (orderList.Count >= 1)
+                        {
                             AdminSearchOrder();
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR - No orders have been made, please make an order first. (Press 1.)");
+                        }
                         break;
                     case 3:
+                        if (orderList.Count >= 1)
+                        {
                             AdminUpdateOrder();
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR - No orders have been made, please make an order first. (Press 1.)");
+                        }
                         break;
                     case 4:
+                        if (orderList.Count >= 1)
+                        {
                             AdminDeleteOrder();
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR - No orders have been made, please make an order first. (Press 1.)");
+                        }
                         break;
                     //Write 5 and you return to front page
                     case 5:
@@ -66,7 +94,10 @@
         public void AdminCreateOrder()
         {
             Console.Clear();
-
+            foreach (Customer existingCustomer in customerDictionary.Values)
+            {
+                Console.WriteLine(existingCustomer);
+            }
             Console.WriteLine("\nAre you already a member?");
             Console.WriteLine("1. Yes\n2. No");
             NumericChoiceValidator();
@@ -75,63 +106,92 @@
             if (decision == 1)
             {
                 Console.WriteLine("\nPlease write your CPR number");
-                NumericChoiceValidator();
-                foreach (Customer existingCustomer in customerDictionary.Values)
+                NumericChoiceValidator2();
+                if (customerDictionary.ContainsKey(NumericChoice2))
                 {
-                    if (existingCustomer.CPR == NumericChoice)
+                    Customer existingCustomer = customerDictionary[NumericChoice2];
+                    Console.WriteLine($"\nCustomer with CPR:{NumericChoice2} is found!");
+                    Console.WriteLine($"{existingCustomer}\n");
+
+                    Console.WriteLine("Pizza Menu");
+                    foreach (Pizza createdPizza in pizzaList)
                     {
-                        Console.WriteLine($"\nCustomer with CPR:{NumericChoice} is found!");
-                        Console.WriteLine($"{existingCustomer}\n");
-
-                        foreach (Pizza createdPizza in pizzaList)
-                        {
-                            Console.WriteLine(createdPizza);
-                        }
-
-                        Console.WriteLine("\nEnter the menu number of the pizza you want to order");
-                        NumericChoiceValidator2();
-
-                        orderCatalog.CreateOrder(NumericChoice, NumericChoice2);
-                        Console.WriteLine("\nCongratulations order has been created!\nHere's your order confirmation:");
-                        orderCatalog.PrintOrderConfirmation(NumericChoice2);
-                        break;
+                        Console.WriteLine(createdPizza);
                     }
-                    Console.WriteLine($"\nCustomer with CPR: {NumericChoice} does not exist.");
-                    break;
-                }
 
+                    Console.WriteLine("\nEnter the menu number of the pizza you want to order");
+                    NumericChoice3 = 0;
+                    while ((NumericChoice3 <= 0) || (NumericChoice3 > pizzaList.Count))
+                    {
+                        NumericChoiceValidator3();
+                        if ((NumericChoice3 <= 0) || (NumericChoice3 > pizzaList.Count))
+                        {
+                            Console.WriteLine($"\nCannot SELECT Pizza Nr: {NumericChoice3} ---- Does not exist");
+                        }
+                        else
+                        {
+                            orderCatalog.CreateOrder(NumericChoice2, NumericChoice3);
+                            Console.WriteLine("\nCongratulations order has been created!\n\nHere's your order confirmation:");
+                            orderCatalog.PrintOrderConfirmation(NumericChoice2, NumericChoice3);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"\nCustomer with CPR: {NumericChoice2} does not exist.");
+                }
             }
             //Customer does not exist
             else if (decision == 2)
             {
                 Console.WriteLine("\nPlease write your CPR number");
-                NumericChoiceValidator();
-
-                Console.WriteLine("\nWhat's your surname?");
-                userChoices.Add(Console.ReadLine());
-
-                Console.WriteLine("\nWhat is your lastname?");
-                userChoices.Add(Console.ReadLine());
-
-                Console.WriteLine("\nHow old are you?");
                 NumericChoiceValidator2();
-
-                Customer customer = new Customer(NumericChoice, userChoices[0], userChoices[1], NumericChoice2);
-                customerDictionary.Add(customer.CPR, customer);
-                userChoices.Clear();
-
-                Console.WriteLine("\nCongratulations you're now a member of Big Mama pizza!\nHere's a list of our pizzas");
-                foreach (Pizza createdPizza in pizzaList)
+                if (customerDictionary.ContainsKey(NumericChoice2))
                 {
-                    Console.WriteLine(createdPizza);
+                    Console.WriteLine($"Customer with CPR: {NumericChoice2} already exists!");
+                }
+                else if (!customerDictionary.ContainsKey(NumericChoice2))
+                {
+                    Console.WriteLine("\nWhat's your surname?");
+                    userChoices.Add(Console.ReadLine());
+
+                    Console.WriteLine("\nWhat is your lastname?");
+                    userChoices.Add(Console.ReadLine());
+
+                    Console.WriteLine("\nHow old are you?");
+                    NumericChoiceValidator3();
+
+                    Customer customer = new Customer(NumericChoice2, userChoices[0], userChoices[1], NumericChoice3);
+                    customerDictionary.Add(NumericChoice2, customer);
+                    userChoices.Clear();
+
+                    Console.WriteLine("\nCongratulations you're now a member of Big Mama pizza!\nHere's a list of our pizzas\n");
+                    Console.WriteLine("Pizza Menu");
+                    foreach (Pizza createdPizza in pizzaList)
+                    {
+                        Console.WriteLine(createdPizza);
+                    }
+
+                    Console.WriteLine("\nEnter the menu number of the pizza you want to order");
+                    NumericChoice4 = 0;
+                    while ((NumericChoice4 <= 0) || (NumericChoice4 > pizzaList.Count))
+                    {
+                        NumericChoiceValidator4();
+                        if ((NumericChoice4 <= 0) || (NumericChoice4 > pizzaList.Count))
+                        {
+                            Console.WriteLine($"\nCannot SELECT Pizza Nr: {NumericChoice4} ---- Does not exist");
+                        }
+                        else
+                        {
+                            orderCatalog.CreateOrder(NumericChoice2, NumericChoice4);
+                            Console.WriteLine("\nCongratulations order has been created!\n\nHere's your order confirmation:");
+                            orderCatalog.PrintOrderConfirmation(NumericChoice2, NumericChoice4);
+                            break;
+                        }
+                    }
                 }
 
-                Console.WriteLine("\nEnter the menu number of the pizza you want to order");
-                NumericChoiceValidator3();
-
-                orderCatalog.CreateOrder(NumericChoice, NumericChoice3);
-                Console.WriteLine("\nCongratulations order has been created!\nHere's your order confirmation:");
-                orderCatalog.PrintOrderConfirmation(NumericChoice2);
             }
             else
             {

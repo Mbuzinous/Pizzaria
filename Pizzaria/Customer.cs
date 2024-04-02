@@ -10,7 +10,7 @@
         //Method
         public override string ToString()
         {
-            return $"CPR: {CPR}     Surname: {Surname.PadRight(15)} Lastname: {Lastname.PadRight(15)} Age: {Age}";
+            return $"CPR:{"".PadRight(6)}{CPR}{"".PadRight(15)}Surname: {Surname.PadRight(15)} Lastname: {Lastname.PadRight(32)} Age: {Age}";
         }
     }
 }

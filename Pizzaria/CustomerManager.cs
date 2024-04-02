@@ -85,21 +85,27 @@ namespace Pizzaria
 
             Console.WriteLine(Dialog.PrintCACPR);
             NumericChoiceValidator();
+            if (customerDictionary.ContainsKey(NumericChoice))
+            {
+                Console.WriteLine($"Customer with CPR: {NumericChoice} already exists!");
+            }
+            else if (!customerDictionary.ContainsKey(NumericChoice))
+            {
+                Console.WriteLine(Dialog.PrintCASurname);
+                userChoices.Add(Console.ReadLine());
 
-            Console.WriteLine(Dialog.PrintCASurname);
-            userChoices.Add(Console.ReadLine());
+                Console.WriteLine(Dialog.PrintCALastname);
+                userChoices.Add(Console.ReadLine());
 
-            Console.WriteLine(Dialog.PrintCALastname);
-            userChoices.Add(Console.ReadLine());
+                Console.WriteLine(Dialog.PrintCAAge);
+                NumericChoiceValidator2();
 
-            Console.WriteLine(Dialog.PrintCAAge);
-            NumericChoiceValidator2();
+                customerCatalog.CreateCustomer(NumericChoice, userChoices[0], userChoices[1], NumericChoice2);
+                userChoices.Clear();
 
-            customerCatalog.CreateCustomer(NumericChoice, userChoices[0], userChoices[1], NumericChoice2);
-            userChoices.Clear();
-
-            Console.WriteLine(Dialog.PrintCACreateSuccess);
-            customerCatalog.PrintCustomers();
+                Console.WriteLine(Dialog.PrintCACreateSuccess);
+                customerCatalog.PrintCustomers();
+            }
 
             Console.WriteLine(Dialog.PrintEnterChoice);
             Console.WriteLine(Dialog.PrintAgainOrBack);

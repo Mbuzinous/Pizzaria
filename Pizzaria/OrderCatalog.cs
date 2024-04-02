@@ -1,4 +1,6 @@
-﻿namespace Pizzaria
+﻿using System.Runtime.ConstrainedExecution;
+
+namespace Pizzaria
 {
     public class OrderCatalog : StoreManager
     {
@@ -29,21 +31,46 @@
         {
             foreach (Order existingOrder in orderList)
             {
-                Console.WriteLine(existingOrder);
+                Pizza pizza = existingOrder.Pizza;
+                Customer customer = existingOrder.Customer;
+
+                foreach (Pizza existingPizza in pizzaList)
+                {
+                    if (existingPizza.MenuNr == pizza.MenuNr)
+                    {
+                        foreach (Customer existingCustomer in customerDictionary.Values)
+                        {
+                            if (existingCustomer.CPR == customer.CPR)
+                            {
+                                Console.WriteLine($"\n{existingOrder}");
+                                Console.WriteLine($"{existingPizza}");
+                                Console.WriteLine($"{existingCustomer}\n");
+                            }
+                        }
+                    }
+                }
             }
         }
-        public void PrintOrderConfirmation(int pizzaMenuNumber)
+        public void PrintOrderConfirmation(int customerCPR, int pizzaMenuNumber)
         {
             foreach (Order existingOrder in orderList)
             {
-                    foreach (Pizza existingPizza in pizzaList)
+                foreach (Pizza existingPizza in pizzaList)
+                {
+                    if (existingPizza.MenuNr == pizzaMenuNumber)
                     {
-                        if (existingPizza.MenuNr == pizzaMenuNumber)
+                        foreach (Customer existingCustomer in customerDictionary.Values)
                         {
-                            Console.WriteLine($"\n{existingOrder}{existingPizza}");
-                            break;
+                            if (existingCustomer.CPR == customerCPR)
+                            {
+                                Console.WriteLine($"\n{existingOrder}");
+                                Console.WriteLine($"{existingPizza}");
+                                Console.WriteLine($"{existingCustomer}\n");
+                                return;
+                            }
                         }
                     }
+                }
             }
         }
 
@@ -54,7 +81,7 @@
                 if (existingOrder.ID == orderID)
                 {
                     Console.WriteLine($"\nOrder with ID:{orderID} is found!");
-                    Console.WriteLine(existingOrder);
+                    PrintOrders();
                     return;
                 }
             }
@@ -64,13 +91,13 @@
         //Method - Update
         public void UpdateOrder(int orderID, int customerCPR, int pizzaMenuNumber, string name, string toppings, int price)
         {
-                Pizza updatedPizza = new Pizza(name, toppings, price);
-                pizzaList[pizzaMenuNumber - 1] = updatedPizza;
-                updatedPizza.MenuNr = pizzaMenuNumber;
+            Pizza updatedPizza = new Pizza(name, toppings, price);
+            pizzaList[pizzaMenuNumber - 1] = updatedPizza;
+            updatedPizza.MenuNr = pizzaMenuNumber;
 
-                Order updatedOrder = new Order(customerDictionary[customerCPR], pizzaList[pizzaMenuNumber - 1]);
-                orderList[orderID - 1] = updatedOrder;
-                updatedOrder.ID = orderID;
+            Order updatedOrder = new Order(customerDictionary[customerCPR], pizzaList[pizzaMenuNumber - 1]);
+            orderList[orderID - 1] = updatedOrder;
+            updatedOrder.ID = orderID;
         }
 
 
