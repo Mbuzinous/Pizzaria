@@ -1,13 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     public abstract class StoreManager 
     {
-        
-        //private List<Order> orderList = new List<Order>();
-        //private Dictionary<int, Customer> customerDictionary = new Dictionary<int, Customer>();
-        //private List<Pizza> pizzaList = new List<Pizza>();
         private Dialog dialog = new Dialog();
 
         public List<string> userChoices = new List<string>();
@@ -28,15 +22,9 @@ namespace Pizzaria
         public int NumericChoice { get => numericChoice; set => numericChoice = value; }
         public int NumericChoice2 { get => numericChoice2; set => numericChoice2 = value; }
         public int NumericChoice3 { get => numericChoice3; set => numericChoice3 = value; }
-        //public Dictionary<int, Customer> CustomerDictionary { get => customerDictionary; set => customerDictionary = value; }
-        //public List<Pizza> PizzaList { get => pizzaList; set => pizzaList = value; }
-        //public List<Order> OrderList { get => orderList; set => orderList = value; }
+       
         public Dialog Dialog { get => dialog; set => dialog = value; }
         public int NumericChoice4 { get => numericChoice4; set => numericChoice4 = value; }
-
-
-        //Found myself repeating these lines of codes
-        //It's just to make sure user doesn't write letters when they should write numbers, as it would close the program if that happened
 
         public void FrontPage()
         {

@@ -6,13 +6,13 @@
         public List<Pizza> pizzaList;
         public Dictionary<int, Customer> customerDictionary;
         public List<Order> orderList;
+
         public OrderManager(Store store, List<Pizza> pizzaList, Dictionary<int, Customer> customerDictionary, List<Order> orderList) : base(store)
         {
             orderCatalog = new OrderCatalog(store, pizzaList, customerDictionary, orderList);
             this.pizzaList = pizzaList;
             this.customerDictionary = customerDictionary;
             this.orderList = orderList;
-
         }
 
         public void OrderAdminPage()
@@ -153,7 +153,7 @@
                 }
                 else if (!customerDictionary.ContainsKey(NumericChoice2))
                 {
-                    Console.WriteLine("\nWhat's your surname?");
+                    Console.WriteLine("\nWhat's your firstname?");
                     userChoices.Add(Console.ReadLine());
 
                     Console.WriteLine("\nWhat is your lastname?");
@@ -191,13 +191,11 @@
                         }
                     }
                 }
-
             }
             else
             {
                 Console.WriteLine(Dialog.PrintInvalidNumberError);
             }
-
             Console.WriteLine(Dialog.PrintEnterChoice);
             Console.WriteLine(Dialog.PrintAgainOrBack);
             Console.WriteLine(Dialog.PrintExitProgram);
@@ -223,7 +221,6 @@
                 }
             }
         }
-
 
         //Read
         public void AdminSearchOrder()

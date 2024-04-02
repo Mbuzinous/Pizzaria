@@ -1,10 +1,11 @@
 ﻿namespace Pizzaria
 {
-    //CRUD Methods of menu items (Pizza)
     public class MenuCatalog : StoreManager
     {
+        //Instance Field
         public List<Pizza> pizzaList;
 
+        //Constructor
         public MenuCatalog(Store store, List<Pizza> pizzaList) : base(store)
         {
             this.pizzaList = pizzaList;
@@ -85,10 +86,8 @@
             {
                 return;
             }
-
             pizzaList.RemoveAt(menuNumber - 1);
             Console.WriteLine($"Pizza Nr. {menuNumber} has been deleted");
-
             // Update the menu numbers of the remaining pizzas
             for (int i = menuNumber - 1; i < pizzaList.Count; i++)
             {
@@ -96,6 +95,4 @@
             }
         }
     }
-
-
 }

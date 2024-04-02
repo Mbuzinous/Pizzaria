@@ -4,6 +4,7 @@
     {
         MenuCatalog menuCatalog;
         public List<Pizza> pizzaList;
+
         public PizzaManager(Store store, List<Pizza> pizzaList) : base(store)
         {
             menuCatalog = new MenuCatalog(store, pizzaList);

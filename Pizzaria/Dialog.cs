@@ -39,7 +39,7 @@
         private string printCAUpdate = "3. Update a customer";
         private string printCADelete = "4. Delete a customer";
         private string printCANoCustomerError = "\nError - NO customers have been added. Please add one first.";
-        private string printCASurname = "\nEnter the surname";
+        private string printCAFirstname = "\nEnter the firstname";
         private string printCALastname = "\nEnter the lastname";
         private string printCAAge = "\nEnter the age";
         private string printCACPR = "\nEnter the CPR";
@@ -91,7 +91,7 @@
         public string PrintCAUpdate { get => printCAUpdate; }
         public string PrintCADelete { get => printCADelete; }
         public string PrintCANoCustomerError { get => printCANoCustomerError; }
-        public string PrintCASurname { get => printCASurname; }
+        public string PrintCAFirstname { get => printCAFirstname; }
         public string PrintCALastname { get => printCALastname; }
         public string PrintCAAge { get => printCAAge; }
         public string PrintCACPR { get => printCACPR; }

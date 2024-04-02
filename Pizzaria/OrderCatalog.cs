@@ -1,6 +1,4 @@
-﻿using System.Runtime.ConstrainedExecution;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     public class OrderCatalog : StoreManager
     {

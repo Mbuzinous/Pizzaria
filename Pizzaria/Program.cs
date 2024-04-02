@@ -6,7 +6,6 @@
         {
             Store bigMama = new Store();
             bigMama.Run();
-
         }
     }
 }

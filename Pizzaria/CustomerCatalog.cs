@@ -1,11 +1,10 @@
-﻿using static System.Formats.Asn1.AsnWriter;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
-    //CRUD Methods of Customers
     public class CustomerCatalog : StoreManager
     {
+        //Instance Field
         public Dictionary<int, Customer> customerDictionary;
+
         //Constuctor
         public CustomerCatalog(Store store, Dictionary<int, Customer> customerDictionary) : base(store)
         {
@@ -14,10 +13,9 @@ namespace Pizzaria
         }
 
         //Method - Create
-        public void CreateCustomer(int cpr, string surname, string lastsurname, int age)
+        public void CreateCustomer(int cpr, string firstname, string lastname, int age)
         {
-           
-            Customer customer = new Customer(cpr, surname, lastsurname, age);
+            Customer customer = new Customer(cpr, firstname, lastname, age);
             customerDictionary.Add(cpr, customer);
         }
 
@@ -45,9 +43,9 @@ namespace Pizzaria
         }
 
         //Method - Update
-        public void UpdateCustomer(int cpr, string surname, string lastsurname, int age)
+        public void UpdateCustomer(int cpr, string firstname, string lastname, int age)
         {
-            Customer updatedCustomer = new Customer(cpr, surname, lastsurname, age);
+            Customer updatedCustomer = new Customer(cpr, firstname, lastname, age);
             customerDictionary[updatedCustomer.CPR] = updatedCustomer;
         }
 

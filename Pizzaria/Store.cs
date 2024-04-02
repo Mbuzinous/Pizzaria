@@ -1,6 +1,4 @@
-﻿using static System.Formats.Asn1.AsnWriter;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     public class Store
     {
@@ -59,20 +57,7 @@ namespace Pizzaria
                 }
             }
         }
-        /*public double CalculateTotalPrice()
-        {
-            _totalPrice += (_pizzaChoice1.Price + _pizzaChoice2.Price + _pizzaChoice3.Price) * _tax;
-            //Here i assign the first customer to have free delivery
-            if (_customer.Id == 100)
-            {
-                return _totalPrice;
-            }
-            else
-            {
-                _totalPrice += _deliveryCost;
-                return _totalPrice;
-            }
-        }*/
+        
         public void NumericChoiceValidator()
         {
             while (true)
@@ -88,8 +73,6 @@ namespace Pizzaria
                 }
             }
         }
-
-
     }
 }
 

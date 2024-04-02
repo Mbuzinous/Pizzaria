@@ -1,6 +1,4 @@
-﻿using System.Runtime.ConstrainedExecution;
-
-namespace Pizzaria
+﻿namespace Pizzaria
 {
     public class CustomerManager : StoreManager
     {
@@ -8,7 +6,7 @@ namespace Pizzaria
         public Dictionary<int, Customer> customerDictionary;
         public CustomerManager(Store store, Dictionary<int, Customer> customerDictionary) : base(store)
         {
-            customerCatalog = new CustomerCatalog (store, customerDictionary);
+            customerCatalog = new CustomerCatalog(store, customerDictionary);
             this.customerDictionary = customerDictionary;
         }
 
@@ -25,7 +23,6 @@ namespace Pizzaria
             Console.WriteLine(Dialog.PrintBackToFront);
 
             Console.WriteLine(Dialog.PrintEnterChoice);
-
             while (true)
             {
                 NumericChoiceValidator();
@@ -91,7 +88,7 @@ namespace Pizzaria
             }
             else if (!customerDictionary.ContainsKey(NumericChoice))
             {
-                Console.WriteLine(Dialog.PrintCASurname);
+                Console.WriteLine(Dialog.PrintCAFirstname);
                 userChoices.Add(Console.ReadLine());
 
                 Console.WriteLine(Dialog.PrintCALastname);
@@ -183,7 +180,7 @@ namespace Pizzaria
             }
             else
             {
-                Console.WriteLine(Dialog.PrintCASurname);
+                Console.WriteLine(Dialog.PrintCAFirstname);
                 userChoices.Add(Console.ReadLine());
 
                 Console.WriteLine(Dialog.PrintCALastname);

@@ -5,6 +5,7 @@
         private int _id;
         private DateTime _date;
 
+        //No time left to implement calculate total price, including multiple pizzas per order
         private double _tax = 1.25;
         private double _deliveryCost = 40;
         private double _totalPrice;
@@ -17,6 +18,7 @@
             _customer = customer;
             _pizza = pizza;
         }
+
         public int ID { get => _id; set => _id = value; }
         public Customer Customer { get => _customer; }
         public Pizza Pizza { get => _pizza; }
